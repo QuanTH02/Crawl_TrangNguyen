@@ -52,20 +52,24 @@ def mkdir(pathFile):
 def outerHTMLtoSoup(outerHTML, thumuccon):
     soup = BeautifulSoup(outerHTML, 'html.parser')
 
+    # Loại bỏ tất cả các thẻ input radio
     radio_inputs = soup.find_all('input', {'type': 'radio'})
     for radio in radio_inputs:
         radio.decompose()
 
+    # Thêm ký hiệu [[ ]] cho các input elements rồi xóa chúng
     input_elements = soup.find_all('input')
     for input_element in input_elements:
         input_element.insert_before('[[]]')
         input_element.decompose()
 
+    # Xử lý các câu hỏi trong thẻ <p> với class cụ thể
     question_elements = soup.find_all('p', class_='text-base font-bold md:text-xl')
     for question in question_elements:
         question_number = question.text.strip().split()[-1]
         question.replace_with(f'Câu {question_number}.')
 
+    # Xử lý các thẻ img
     img_elements = soup.find_all('img')
     for img in img_elements:
         img_url = img.get('src')
@@ -75,15 +79,22 @@ def outerHTMLtoSoup(outerHTML, thumuccon):
             else:
                 img.replace_with(f'((Image)): {img_url}')
 
+    # Xử lý các thẻ video
     video_elements = soup.find_all('video')
     for video in video_elements:
-        video.replace_with('((Video))')
+        video.replace_with('((Video)): ' + thumuccon)
 
+    # Thêm đoạn văn bản "Dưới đây là các nhóm:" vào các container cụ thể
     container_divs = soup.find_all('div', class_='container m-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4')
     for container in container_divs:
         description_tag = soup.new_tag('p')
         description_tag.string = 'Dưới đây là các nhóm:'
-        container.insert(0, description_tag) 
+        container.insert(0, description_tag)
+
+    # Loại bỏ thuộc tính draggable="true" từ tất cả các thẻ div
+    draggable_divs = soup.find_all('div', draggable="true")
+    for draggable_div in draggable_divs:
+        del draggable_div['draggable']
 
     # Lưu HTML đã chỉnh sửa vào file
     with open(thumuccon, "w", encoding="utf-8") as html_file:
@@ -134,7 +145,7 @@ def crawl(thumuclon):
 
     dethi_button = driver.find_elements(By.XPATH, '/html/body/div[1]/div[2]/div/div/main/div/div/div[2]/div[1]/div[1]/div/button')
     for i, dethi_div in enumerate(dethi_button):
-        # if i == 0 or i == 1:
+        # if i == 1 or i == 2:
         #     continue
 
         print(i)
@@ -152,7 +163,7 @@ def crawl(thumuclon):
         print(range(len(vongthi_all_div)))
         for j in range(len(vongthi_all_div)):
             print(j)
-            # if j < 14:
+            # if j > 4:
             #     continue
             if j != 0:
                 try:
