@@ -2,6 +2,7 @@ import os
 import time
 import pyautogui
 import pyperclip
+from bs4 import BeautifulSoup
 
 TIME_KEY = 0.2
 TIME_LONG = 1
@@ -101,6 +102,53 @@ def edit_word(duong_dan_tep_moi):
     pyautogui.keyUp('alt')
     time.sleep(2)
 
+# Đưa Txt về HTML để render ảnh
+def txt_to_html(input_file, output_file):
+    with open(input_file, "r", encoding="utf-8") as file:
+        lines = file.readlines()
+
+    soup = BeautifulSoup("", "html.parser")
+
+    for line in lines:
+        line = line.strip()
+        if line.startswith("((Image)):"):  # Nếu dòng là định dạng hình ảnh
+            image_url = line.split("((Image)):")[-1].strip()
+
+            caption_tag = soup.new_tag("p")
+            caption_tag.string = "Ảnh:"
+            soup.append(caption_tag)
+
+            img_tag = soup.new_tag("img", src=image_url)
+            soup.append(img_tag)
+        elif line:
+            p_tag = soup.new_tag("p")
+            p_tag.string = line
+            soup.append(p_tag)
+
+    with open(output_file, "w", encoding="utf-8") as file:
+        file.write(soup.prettify())
+    
+    os.startfile(output_file)
+
+    time.sleep(1)
+
+    pyautogui.keyDown('ctrl')
+    pyautogui.press('a')
+    pyautogui.keyUp('a')
+    pyautogui.keyUp('ctrl')
+    
+    time.sleep(1)
+    pyautogui.keyDown('ctrl')
+    pyautogui.press('c')
+    pyautogui.keyUp('c')
+    pyautogui.keyUp('ctrl')
+
+    time.sleep(0.5)
+    pyautogui.keyDown('ctrl')
+    pyautogui.press('w')
+    pyautogui.keyUp('w')
+    pyautogui.keyUp('ctrl')
+
 def duyet_thu_muc(duong_dan):
     for thu_muc_goc, thu_muc_con, tap_tin in os.walk(duong_dan):
         if tap_tin:
@@ -110,10 +158,15 @@ def duyet_thu_muc(duong_dan):
                     print(index)
                     duong_dan_tep_tin = os.path.join(thu_muc_goc, ten_tap_tin)
 
-                    with open(duong_dan_tep_tin, 'r', encoding='utf-8') as file:
-                        noi_dung = file.read()
+                    txt_to_html(duong_dan_tep_tin, duong_dan_tep_tin.replace('.txt', '.html'))
 
-                    pyperclip.copy(noi_dung)
+
+                    # with open(duong_dan_tep_tin, 'r', encoding='utf-8') as file:
+                    #     noi_dung = file.read()
+
+                    # pyperclip.copy(noi_dung)
+
+
 
                     time.sleep(1)
                     duongdancu = duong_dan_tep_tin
