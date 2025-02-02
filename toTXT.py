@@ -57,3 +57,7 @@ def duyet_thu_muc(duong_dan):
 def main_to_TXT(path_folder):
     print('Chuyển đổi HTML sang TXT')
     duyet_thu_muc(path_folder)
+
+if __name__ == "__main__":
+    path_folder = 'Khoi 1'
+    main_to_TXT(path_folder)

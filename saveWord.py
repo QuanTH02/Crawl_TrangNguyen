@@ -1,3 +1,4 @@
+import re
 import os
 import time
 import pyautogui
@@ -108,54 +109,22 @@ def split_caption_img(string):
     
     return image_url    
 
-def convert_string_img_to_html(soup, string, isDash):
-    image_url = split_caption_img(string)
+def convert_string_img_to_html(soup, text):
+    url_pattern = r'Image:\s*(https?://[^\s)\]]+)'
+    matches = re.finditer(url_pattern, text)
 
-    if "[(" in image_url:
-        image_url, caption = image_url.split("[(")
-        image_url = image_url.strip()
-        caption = caption.strip(")]").strip()
+    p_tag = soup.new_tag("p")
 
-        if 'Image:' in caption:
-            img_url_caption = split_caption_img(caption)
-            p_tag = soup.new_tag("p")
+    last_end = 0
+    for match in matches:
+        start, end = match.span()
+        p_tag.append(text[last_end:start]) 
+        img_tag = soup.new_tag("img", src=match.group(1))
+        p_tag.append(img_tag)
+        last_end = end
 
-            if isDash:
-                p_tag.string = "- "
-
-            img_tag = soup.new_tag("img", src=image_url)
-            p_tag.append(img_tag)
-
-            img_caption_tag = soup.new_tag("img", src=img_url_caption)
-            caption_tag = soup.new_tag("span")
-            caption_tag.append('[(')
-            caption_tag.append(img_caption_tag)
-            caption_tag.append(')]')
-            p_tag.append(caption_tag)
-            return p_tag
-        else:
-            p_tag = soup.new_tag("p")
-            if isDash:
-                p_tag.string = "- "
-
-            img_tag = soup.new_tag("img", src=image_url)
-            p_tag.append(img_tag)
-            caption_tag = soup.new_tag("span")
-            caption_tag.string = " [(" + caption + ")]"
-            p_tag.append(caption_tag)
-            return p_tag
-    else:
-        img_tag = soup.new_tag("img", src=image_url)
-        if isDash:
-            p_tag = soup.new_tag("p")
-            p_tag.string = "- "
-            p_tag.append(img_tag)
-            return p_tag
-        else:
-            p_tag = soup.new_tag("p")
-            p_tag.append(img_tag)
-
-        return p_tag
+    p_tag.append(text[last_end:])
+    return p_tag
 
 # Đưa Txt về HTML để render ảnh
 def txt_to_html(input_file, output_file):
@@ -164,18 +133,22 @@ def txt_to_html(input_file, output_file):
 
     soup = BeautifulSoup("", "html.parser")
 
+    line_xoaluachon = 0
+
     for line in lines:
         line = line.strip()
-        if line.startswith("Image:"):
-            new_tag = convert_string_img_to_html(soup, line, False)
-            soup.append(new_tag)
 
-        elif line.startswith("- Image:"):
-            parts = line.split("- Image:")
-            image_url = parts[1].strip()
+        if "Xóa lựa chọn" in line:
+            line_xoaluachon = 1
+            continue
 
-            new_tag = convert_string_img_to_html(soup, image_url, True)
-            soup.append(new_tag)
+        if line_xoaluachon:
+            line_xoaluachon = 0
+            continue
+
+        if "Image:" in line:
+            p_tag = convert_string_img_to_html(soup, line)
+            soup.append(p_tag)
 
         elif line:
             p_tag = soup.new_tag("p")
@@ -222,8 +195,7 @@ def duyet_thu_muc(duong_dan):
                     #     noi_dung = file.read()
 
                     # pyperclip.copy(noi_dung)
-
-
+                    # break
 
                     time.sleep(1)
                     duongdancu = duong_dan_tep_tin
@@ -241,3 +213,7 @@ def duyet_thu_muc(duong_dan):
 def main_save_word(path_folder):
     print('Chuyển đổi TXT sang DOCX')
     duyet_thu_muc(path_folder)
+
+if __name__ == "__main__":
+    path_folder = 'Khoi 1'
+    main_save_word(path_folder)

@@ -145,8 +145,8 @@ def crawl(thumuclon):
 
     dethi_button = driver.find_elements(By.XPATH, '/html/body/div[1]/div[2]/div/div/main/div/div/div[2]/div[1]/div[1]/div/button')
     for i, dethi_div in enumerate(dethi_button):
-        if i == 1 or i == 2:
-            continue
+        # if i != 0:
+        #     continue
 
         print(i)
         driver.get("https://thi.trangnguyen.edu.vn/thu-tai/")
@@ -162,17 +162,18 @@ def crawl(thumuclon):
 
         print(range(len(vongthi_all_div)))
         for j in range(len(vongthi_all_div)):
-            print(j)
-            if j != 5:
-                continue
-            # if j != 0:
-            #     try:
-            #         driver.back()
-            #         time.sleep(0.5)
-            #         alert = Alert(driver)  
-            #         alert.accept() 
-            #     except Exception as e:
-            #         print("Không có alert:", str(e))
+            # print(j)
+            # if j > 6:
+            #     continue
+
+            if j != 0:
+                try:
+                    driver.back()
+                    time.sleep(0.5)
+                    alert = Alert(driver)  
+                    alert.accept() 
+                except Exception as e:
+                    print("Không có alert:", str(e))
 
             time.sleep(1)
 
@@ -203,3 +204,10 @@ def main_crawl_question(link_page, account, password, path_folder):
 
     login(link_page, account, password)
     crawl(path_folder)
+
+if __name__ == "__main__":
+    link_page = 'https://trangnguyen.edu.vn/dang-nhap'
+    account = 'nguyenhoaithuongnamtntc'
+    password = 'Tuananh123'
+    path_folder = 'thuong@123456'
+    main_crawl_question(link_page, account, password, path_folder)
