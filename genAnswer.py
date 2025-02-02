@@ -19,6 +19,7 @@ Bạn là một mô hình phân tích và tạo đầu ra theo định dạng t�
     - Buổi chiều, [[con kênh phơn phớt màu đào]].
 - Nếu yêu cầu đề là dạng sắp xếp theo từng từ thì đưa về dạng điền khuyết, đáp án được thêm vào các dấu [[]]. Ví dụ: [[Hôm nay]] [[tôi]] [[đi]] [[học]].
 - Nếu yêu cầu đề là dạng sắp xếp theo từng chữ thì đưa về dạng kéo thả, đáp án được thêm vào các dấu [()]. Ví dụ: [(H)] [(ọ)] [(c)] [(t)] [(ậ)] [(p)]
+- Nếu yêu cầu đề là dạng ghép với nhau thì đưa về dạng kéo thả, đáp án thêm vào dấu [()]. Ví dụ: Hài [(hước)]
 - Dấu [...] thì để nguyên, không thay đổi.  
 - Nội dung câu hỏi và đáp án không được thay đổi, chỉ thêm vào đáp án theo định dạng tôi quy ước.
 
@@ -194,6 +195,57 @@ Output:
 Câu 8.
 Chọn tiếng thích hợp điền vào chỗ trống sau:
 Tiếng "chất" có thể ghép với tiếng [[liệu]] để tạo thành tính từ.
+
+Input:
+Câu 9.
+Hãy ghép hình ảnh với câu mô tả tương ứng:
+Image: https://media.trangnguyen.edu.vn/uploads/2019/De%20thi%202023/cau_hoi_ghep_cap/choi_bong_ro.png
+Image: https://media.trangnguyen.edu.vn/uploads/2019/De%20thi%202023/cau_hoi_ghep_cap/chay_bo.png
+Image: https://media.trangnguyen.edu.vn/uploads/2019/De%20thi%202023/cau_hoi_ghep_cap/badminton.png
+ 
+Xóa lựa chọn
+Các bạn nhỏ chơi bóng rổ.
+Xóa lựa chọn
+Bạn nhỏ chơi cầu lông.
+Xóa lựa chọn
+Bạn nhỏ đang chạy bộ.
+
+Output:
+Câu 9.
+Hãy ghép hình ảnh với câu mô tả tương ứng:
+Image: https://media.trangnguyen.edu.vn/uploads/2019/De%20thi%202023/cau_hoi_ghep_cap/choi_bong_ro.png [(Các bạn nhỏ chơi bóng rổ.)]
+Image: https://media.trangnguyen.edu.vn/uploads/2019/De%20thi%202023/cau_hoi_ghep_cap/chay_bo.png [(Bạn nhỏ đang chạy bộ.)]
+Image: https://media.trangnguyen.edu.vn/uploads/2019/De%20thi%202023/cau_hoi_ghep_cap/badminton.png [(Bạn nhỏ chơi cầu lông.)]
+
+Input:
+Câu 10.
+Hãy ghép hình ảnh với vần tương ứng:
+Image: https://media.trangnguyen.edu.vn/uploads/2019/De%20thi%202023/cau_hoi_ghep_cap/con_chuot.png
+Image: https://media.trangnguyen.edu.vn/uploads/2019/De%20thi%202023/cau_hoi_ghep_cap/chuon_chuon.png
+Image: https://media.trangnguyen.edu.vn/uploads/2019/De%20thi%202023/cau_hoi_ghep_cap/con_huou.png
+ 
+Xóa lựa chọn
+Image: https://media.trangnguyen.edu.vn/uploads/2019/De%20thi%202023/cau_hoi_ghep_cap/van_uou.png
+Xóa lựa chọn
+Image: https://media.trangnguyen.edu.vn/uploads/2019/De%20thi%202023/cau_hoi_ghep_cap/van_uoot.png
+Xóa lựa chọn
+Image: https://media.trangnguyen.edu.vn/uploads/2019/De%20thi%202023/cau_hoi_ghep_cap/van_uoon.png
+
+Output:
+Câu 10.
+Hãy ghép hình ảnh với vần tương ứng:
+Image: https://media.trangnguyen.edu.vn/uploads/2019/De%20thi%202023/cau_hoi_ghep_cap/con_chuot.png [(Image: https://media.trangnguyen.edu.vn/uploads/2019/De%20thi%202023/cau_hoi_ghep_cap/van_uoot.png)]
+Image: https://media.trangnguyen.edu.vn/uploads/2019/De%20thi%202023/cau_hoi_ghep_cap/chuon_chuon.png [(Image: https://media.trangnguyen.edu.vn/uploads/2019/De%20thi%202023/cau_hoi_ghep_cap/van_uoon.png)]
+Image: https://media.trangnguyen.edu.vn/uploads/2019/De%20thi%202023/cau_hoi_ghep_cap/con_huou.png [(Image: https://media.trangnguyen.edu.vn/uploads/2019/De%20thi%202023/cau_hoi_ghep_cap/van_uou.png)]
+ 
+Xóa lựa chọn
+Image: https://media.trangnguyen.edu.vn/uploads/2019/De%20thi%202023/cau_hoi_ghep_cap/van_uou.png
+Xóa lựa chọn
+Image: https://media.trangnguyen.edu.vn/uploads/2019/De%20thi%202023/cau_hoi_ghep_cap/van_uoot.png
+Xóa lựa chọn
+Image: https://media.trangnguyen.edu.vn/uploads/2019/De%20thi%202023/cau_hoi_ghep_cap/van_uoon.png
+
+
 
 Hãy thực hiện với: {html}
 '''

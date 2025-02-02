@@ -50,7 +50,7 @@ def openReplaceDialog():
 def edit_text_word(text):
     keyRight()
     keyLeft()
-    keyLeft()
+    # keyLeft()
     keyBackspace()
     editText(text)
     keyTab()
@@ -102,6 +102,61 @@ def edit_word(duong_dan_tep_moi):
     pyautogui.keyUp('alt')
     time.sleep(2)
 
+def split_caption_img(string):
+    parts = string.split("Image:")
+    image_url = parts[1].strip()
+    
+    return image_url    
+
+def convert_string_img_to_html(soup, string, isDash):
+    image_url = split_caption_img(string)
+
+    if "[(" in image_url:
+        image_url, caption = image_url.split("[(")
+        image_url = image_url.strip()
+        caption = caption.strip(")]").strip()
+
+        if 'Image:' in caption:
+            img_url_caption = split_caption_img(caption)
+            p_tag = soup.new_tag("p")
+
+            if isDash:
+                p_tag.string = "- "
+
+            img_tag = soup.new_tag("img", src=image_url)
+            p_tag.append(img_tag)
+
+            img_caption_tag = soup.new_tag("img", src=img_url_caption)
+            caption_tag = soup.new_tag("span")
+            caption_tag.append('[(')
+            caption_tag.append(img_caption_tag)
+            caption_tag.append(')]')
+            p_tag.append(caption_tag)
+            return p_tag
+        else:
+            p_tag = soup.new_tag("p")
+            if isDash:
+                p_tag.string = "- "
+
+            img_tag = soup.new_tag("img", src=image_url)
+            p_tag.append(img_tag)
+            caption_tag = soup.new_tag("span")
+            caption_tag.string = " [(" + caption + ")]"
+            p_tag.append(caption_tag)
+            return p_tag
+    else:
+        img_tag = soup.new_tag("img", src=image_url)
+        if isDash:
+            p_tag = soup.new_tag("p")
+            p_tag.string = "- "
+            p_tag.append(img_tag)
+            return p_tag
+        else:
+            p_tag = soup.new_tag("p")
+            p_tag.append(img_tag)
+
+        return p_tag
+
 # Đưa Txt về HTML để render ảnh
 def txt_to_html(input_file, output_file):
     with open(input_file, "r", encoding="utf-8") as file:
@@ -111,15 +166,17 @@ def txt_to_html(input_file, output_file):
 
     for line in lines:
         line = line.strip()
-        if line.startswith("((Image)):"):  # Nếu dòng là định dạng hình ảnh
-            image_url = line.split("((Image)):")[-1].strip()
+        if line.startswith("Image:"):
+            new_tag = convert_string_img_to_html(soup, line, False)
+            soup.append(new_tag)
 
-            caption_tag = soup.new_tag("p")
-            caption_tag.string = "Ảnh:"
-            soup.append(caption_tag)
+        elif line.startswith("- Image:"):
+            parts = line.split("- Image:")
+            image_url = parts[1].strip()
 
-            img_tag = soup.new_tag("img", src=image_url)
-            soup.append(img_tag)
+            new_tag = convert_string_img_to_html(soup, image_url, True)
+            soup.append(new_tag)
+
         elif line:
             p_tag = soup.new_tag("p")
             p_tag.string = line

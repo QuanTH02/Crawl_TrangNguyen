@@ -77,7 +77,7 @@ def outerHTMLtoSoup(outerHTML, thumuccon):
             if img.get('alt') == 'Loa':
                 img.replace_with('((Audio))')
             else:
-                img.replace_with(f'((Image)): {img_url}')
+                img.replace_with(f'Image: {img_url}')
 
     # Xử lý các thẻ video
     video_elements = soup.find_all('video')
@@ -145,8 +145,8 @@ def crawl(thumuclon):
 
     dethi_button = driver.find_elements(By.XPATH, '/html/body/div[1]/div[2]/div/div/main/div/div/div[2]/div[1]/div[1]/div/button')
     for i, dethi_div in enumerate(dethi_button):
-        # if i == 1 or i == 2:
-        #     continue
+        if i == 1 or i == 2:
+            continue
 
         print(i)
         driver.get("https://thi.trangnguyen.edu.vn/thu-tai/")
@@ -163,16 +163,16 @@ def crawl(thumuclon):
         print(range(len(vongthi_all_div)))
         for j in range(len(vongthi_all_div)):
             print(j)
-            # if j > 4:
-            #     continue
-            if j != 0:
-                try:
-                    driver.back()
-                    time.sleep(0.5)
-                    alert = Alert(driver)  
-                    alert.accept() 
-                except Exception as e:
-                    print("Không có alert:", str(e))
+            if j != 5:
+                continue
+            # if j != 0:
+            #     try:
+            #         driver.back()
+            #         time.sleep(0.5)
+            #         alert = Alert(driver)  
+            #         alert.accept() 
+            #     except Exception as e:
+            #         print("Không có alert:", str(e))
 
             time.sleep(1)
 

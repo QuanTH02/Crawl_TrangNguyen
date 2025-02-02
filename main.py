@@ -14,9 +14,9 @@ if __name__ == '__main__':
     
     index = 1
     for account, password in zip(list_account, list_password):
-        if index == 1:
-            index += 1
-            continue
+        # if index == 1:
+        #     index += 1
+        #     continue
         
         path_folder = 'Khoi ' + str(index)
         main_crawl_question(link_page, account, password, path_folder)
@@ -25,3 +25,5 @@ if __name__ == '__main__':
         main_save_word(path_folder)
 
         index += 1
+    
+    print("XONG")
