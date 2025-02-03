@@ -140,6 +140,7 @@ def crawl_question_html(thumuccon):
     outerHTMLtoSoup(outer_html, thumuccon)
 
 def crawl(thumuclon):
+    year = ' - 2024 - 2025'
     driver.get("https://thi.trangnguyen.edu.vn/thu-tai/")
     time.sleep(1)
 
@@ -152,7 +153,7 @@ def crawl(thumuclon):
         driver.get("https://thi.trangnguyen.edu.vn/thu-tai/")
         time.sleep(1)
         dethi_div = driver.find_element(By.XPATH, '/html/body/div[1]/div[2]/div/div/main/div/div/div[2]/div[1]/div[1]/div/button[' + str(i + 1) + ']')
-        thumucbe = thumuclon + '/' + clean_folder_name(dethi_div.text)
+        thumucbe = thumuclon + '/' + str(i + 1) + ' - ' + clean_folder_name(dethi_div.text)
         mkdir(thumucbe)
         dethi_div.click()
 
@@ -185,7 +186,7 @@ def crawl(thumuclon):
                 vongthi_all_div = driver.find_elements(By.XPATH, '/html/body/div[1]/div[2]/div/div/main/div/div/div[2]/div[2]/div/div/div/div[2]/div/div/table/tbody/tr')
                 driver.execute_script("arguments[0].scrollIntoView(true);", vongthi_all_div[j])
                 time.sleep(1)
-                thumuccon = thumucbe + '/' + clean_file_name(driver.find_element(By.XPATH, '/html/body/div[1]/div[2]/div/div/main/div/div/div[2]/div[2]/div/div/div/div[2]/div/div/table/tbody/tr[' + str(j + 1) + ']/td[2]').text) + '.html'
+                thumuccon = thumucbe + '/' + str(j + 1) + ' - ' + clean_file_name(driver.find_element(By.XPATH, '/html/body/div[1]/div[2]/div/div/main/div/div/div[2]/div[2]/div/div/div/div[2]/div/div/table/tbody/tr[' + str(j + 1) + ']/td[2]').text) + year + '.html'
                 vongthi_all_div[j].click()
                 time.sleep(1)
 
