@@ -14,6 +14,7 @@ if __name__ == '__main__':
     
     index = 1
     for account, password in zip(list_account, list_password):
+        # Crawl theo lớp
         if index == 5:
             # index += 1
             # continue

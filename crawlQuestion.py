@@ -208,7 +208,7 @@ def main_crawl_question(link_page, account, password, path_folder):
 
 if __name__ == "__main__":
     link_page = 'https://trangnguyen.edu.vn/dang-nhap'
-    account = 'nguyenhoaithuongnamtntc'
-    password = 'Tuananh123'
-    path_folder = 'thuong@123456'
+    account = 'account1'
+    password = 'password1'
+    path_folder = 'Khoi 1'
     main_crawl_question(link_page, account, password, path_folder)

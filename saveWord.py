@@ -33,6 +33,39 @@ def keyEnter():
     pyautogui.keyUp('enter')
     time.sleep(TIME_KEY)
 
+def keyA():
+    pyautogui.press('a')
+    pyautogui.keyUp('a')
+    time.sleep(TIME_KEY)
+
+def keyShiftA():
+    pyautogui.keyDown('shift')
+    pyautogui.press('a')
+    pyautogui.keyUp('a')
+    pyautogui.keyUp('shift')
+    time.sleep(TIME_KEY)
+
+def keyDot():
+    pyautogui.write('.')
+    # pyautogui.press('period')
+    # pyautogui.keyUp('period')
+    time.sleep(TIME_KEY)
+
+def keyZ():
+    pyautogui.press('z')
+    pyautogui.keyUp('z')
+    time.sleep(TIME_KEY)
+
+def keySpace():
+    pyautogui.press('space')
+    pyautogui.keyUp('space')
+    time.sleep(TIME_KEY)
+
+def keyDown():
+    pyautogui.press('down')
+    pyautogui.keyUp('down')
+    time.sleep(TIME_KEY)
+
 def editText(text):
     pyautogui.keyDown('shift')
     pyautogui.press(text)
@@ -46,6 +79,60 @@ def openReplaceDialog():
     pyautogui.keyUp('h')
     pyautogui.keyUp('ctrl')
     time.sleep(TIME_LONG)
+
+def fistEditKeyA():
+    keyZ()
+    keyZ()
+    keyShiftA()
+    keyDot()
+    keyTab()
+    keyShiftA()
+    keyDot()
+    keySpace()
+    keyTab()
+    keyEnter()
+
+    keyTab()
+    keyTab()
+    keyTab()
+    keyTab()
+
+    keyTab()
+    keyTab()
+    keyTab()
+    keyTab()
+
+    keyTab()
+    keyTab()
+    keyTab()
+    keyTab()
+
+    keyTab()
+    keyTab()
+
+    keyEnter()
+    keyEnter()
+
+    keyTab()
+    keyTab()
+    keyTab()
+    keyTab()
+
+    keyDown()
+    keyDown()
+    keyDown()  
+    
+    keyEnter()
+    keyEnter()
+
+    keyTab()
+    keyTab()
+    keyTab()
+
+    keyEnter()
+    keyEnter()
+
+    return
 
 
 def edit_text_word(text):
@@ -86,7 +173,8 @@ def edit_word(duong_dan_tep_moi):
     time.sleep(2)
 
     openReplaceDialog()
-    edit_text_word('a')
+    fistEditKeyA()
+    # edit_text_word('a')
     edit_text_word('b')
     edit_text_word('c')
     edit_text_word('d')

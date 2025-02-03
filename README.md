@@ -1,7 +1,12 @@
 # Cào dữ liệu trang Web Trạng nguyên
 
-Require: Gemini API
-Lấy API trong google rồi đưa vào file .env với tên: GEMINI_API_KEY
+Require: 
+- Python
+- .env:
+    + GEMINI_API_KEY = 'API_KEY'
+    + ACCOUNT = 'account1,account2' 
+    + PASSWORD = 'password1,password2'
 
-##
-Run: py main.py
+## Run:
+- pip install -r requirements.txt
+- py main.py
