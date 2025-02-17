@@ -10,3 +10,10 @@ Require:
 ## Run:
 - pip install -r requirements.txt
 - py main.py
+
+
+### Công nghệ
+- Crawl data (Selenium, request, beautifulSoup)
+- Trả lời câu hỏi (Gemini)
+- Thao tác màn hình (Pyautogui)
+- Lưu trữ (html, txt, docs)
